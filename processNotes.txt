@@ -10,4 +10,14 @@ Setup
 3. Add .gitignore file and exclude node_modules
 4. Add development dependencies:
     * nodemon  -- restart server automatically
-    * dotenv   -- allows enviroment variables to be stored in an dotenv file that can be loaded into server.
+    * dotenv   -- allows enviroment variables to be stored in an dotenv file that can be loaded into server (like secret information)
+5. Setup package.json to setup server in scripts.
+    "devStart": "nodemon server.js"
+    * test by running "npm run devStart"... you should see the following if it works:
+    --------------------------------------------------------------------
+    [nodemon] 1.19.2
+    [nodemon] to restart at any time, enter `rs`
+    [nodemon] watching dir(s): *.*
+    [nodemon] starting `node server.js`
+    [nodemon] clean exit - waiting for changes before restart
+    --------------------------------------------------------------------
