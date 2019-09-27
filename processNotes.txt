@@ -21,3 +21,21 @@ Setup
     [nodemon] starting `node server.js`
     [nodemon] clean exit - waiting for changes before restart
     --------------------------------------------------------------------
+
+
+Setup basic server functionality
+================================
+1. import express
+    ----------------------------------
+    const express = require('express');
+    ----------------------------------
+2. get app variable from express:
+    ------------------------------------
+    const app = express();
+    ------------------------------------
+3. Create app.listen to listen for client requests on port 3000 or any env stipulation.
+    -------------------------------------------------------------------------------------
+    app.listen(process.env.PORT || 3000, function() {
+        console.log(`Your app is listening on ${process.env.PORT || 3000}...`);
+    });
+    -------------------------------------------------------------------------------------
