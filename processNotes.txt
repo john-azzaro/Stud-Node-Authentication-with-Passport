@@ -5,9 +5,9 @@ Setup
 ========
 1. "npm init" to store dependencies
 2. Install dependencies as needed
-    * express
-    * ejs
+    * express   --  node application framework for building web apps
+    * ejs       --  template engine
 3. Add .gitignore file and exclude node_modules
 4. Add development dependencies:
-    * nodemon
-    * dotenv
+    * nodemon  -- restart server automatically
+    * dotenv   -- allows enviroment variables to be stored in an dotenv file that can be loaded into server.
