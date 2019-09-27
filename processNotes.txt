@@ -1,7 +1,13 @@
 Authentication with Passport Process Notes
 ==========================================
+
+Setup
+========
 1. "npm init" to store dependencies
 2. Install dependencies as needed
     * express
     * ejs
-3. 
+3. Add .gitignore file and exclude node_modules
+4. Add development dependencies:
+    * nodemon
+    * dotenv
