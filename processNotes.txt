@@ -1,8 +1,8 @@
 Authentication with Passport Process Notes
 ==========================================
 
-Setup
-========
+PHASE 0: Setup
+===============
 1. "npm init" to store dependencies
 2. Install dependencies as needed
     * express   --  node application framework for building web apps
@@ -23,8 +23,9 @@ Setup
     --------------------------------------------------------------------
 
 
-Setup basic server functionality
-================================
+
+PHASE 1: Setup basic server functionality
+=========================================
 1. import express
     ----------------------------------
     const express = require('express');
@@ -41,8 +42,9 @@ Setup basic server functionality
     -------------------------------------------------------------------------------------
 
 
-Setup basic routes
-===================
+
+PHASE 2: Setup basic routes
+============================
 First, We need to make a home page that will be accessible to us when we are logged in.
 
 ---------------------------------------------
@@ -52,6 +54,12 @@ app.get('/', function(req, res) {                  // Home page route (that you 
 ---------------------------------------------
 
 
-Create a "views" folder
-=======================
-The views folder.
+
+PHASE 3: Create a "views" folder
+=================================
+1. First, create a "views" folder that will hold your pages.
+2. Second, create a "index.ejs" to render as a response to the user GET request.
+3. Third, in your index.ejs file, write a peice of test code and go to your localhost:3000 to see if everything is connected properly.
+
+
+
