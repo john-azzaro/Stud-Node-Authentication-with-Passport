@@ -1,8 +1,10 @@
 const express = require('express');                // import express
 const app = express();                             // get app variable from express
 
+app.set('view-engine', 'ejs');
+
 app.get('/', function(req, res) {                  // Home page route (that you need to be logged into to get to)
-    res.render('index.ejs');                       // The response will be to render a "index.ejs" page.
+    res.render('index.ejs', { name: 'joe'});                       // The response will be to render a "index.ejs" page.
 });
 
 

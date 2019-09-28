@@ -61,5 +61,23 @@ PHASE 3: Create a "views" folder
 2. Second, create a "index.ejs" to render as a response to the user GET request.
 3. Third, in your index.ejs file, write a peice of test code and go to your localhost:3000 to see if everything is connected properly.
 
+PHASE 4: Using ejs syntax
+===========================
+4. To use ejs syntax, we need to tell the server to use ejs syntax (but remember to check and see if you installed the ejs dependency 
+in case it does not intially work).  Once this is doen you can use ejs in your templates.
+-------------------------------------------
+app.set('view-engine', 'ejs');
+-------------------------------------------
+
+-- To test the ejs system, you can try passing a object with a property comprised of a name and a value (i.e. Joe).
+----------------------------------------------
+app.get('/', function(req, res) { 
+    res.render('index.ejs', { name: 'joe'});        <== user object with the name joe.
+});
+
+----------------------------------------------
+
+Then, in your index.ejs template render out the variable with " <%= %> " and the name in the middle (i.e. <%= name %>)
+
 
 
