@@ -213,7 +213,20 @@ PHASE 8: Add the POST routes for login and register
 What this POST request will do is create a new user with a hashed password.  Remember that bcrypt is an asynchronous library, so you need to add async/await 
 modifiers to the function.
 ---------------------------------------------------------
-
+app.post('/register', async function(req, res) {                               // To create a user...
+    try {                                                                      // create a try block to run our code...
+        const hashedPassword = bcrypt.hash(req.body.password, 10);             // hash the password from the user input (i.e. the body of the form where password is) and the value of 10 (good default).
+        users.push( {                                                          // Then we push this user to the local storage.
+            id:  Date.now().toString(),                                        // ... this is a uuid, but a database would do this by default.
+            name: req.body.name,                                               // ... this would get the name from the body of the form.
+            email: req.body.email,                                             // ... this would get the email from the body of the form.
+            password: hashedPassword                                           // ... this would get the password from the hashedPassword variable above.
+        });         
+        res.redirect('/login');                                                // and if everything works correctly, the response will be to redirect to the login page.                        
+    } catch(err) {                                                             // If the try block fails, send an error.
+        res.redirect('/register', );                                           // and respond by redirecting to the register page.
+    }
+});
 ---------------------------------------------------------
 
 
