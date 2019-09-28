@@ -208,8 +208,8 @@ const bcrypt = require('bcrypt');
 
 
 
-PHASE 8: Add the POST routes for login and register
-====================================================
+PHASE 8: Add the POST route for register
+=========================================
 What this POST request will do is create a new user with a hashed password.  Remember that bcrypt is an asynchronous library, so you need to add async/await 
 modifiers to the function.
 ---------------------------------------------------------
@@ -229,8 +229,29 @@ app.post('/register', async function(req, res) {                               /
 });
 ---------------------------------------------------------
 
+And if you want to check and see if your post method worked, simply log the "users" variable at the end of the function we are using for local storage to see your user, email and information.
+As an example, you should see this:
+----------------------------------------------------------
+[ { id: '1569714335487',
+    name: 'joe',
+    email: 'joe@email.com',
+    password: '$2b$10$./tzKUDOSIMdag7ZwFCw6uAJJd9AeCG9EU13FKSde5rTeO0Ox7QUm' } ]        <== hashed password
+----------------------------------------------------------
+Also remember that since this is all done with local storage (i.e. not a database), this will reset so you need to re-enter the information.
 
 
+
+PHASE 9: Add the login route
+=============================
+While checking to see that the users name and passoword are the same is relatively easy, to persist that user across all the different requests they will make can be a bit tricky.
+To make things more streamlined, use Passport.js which is widely used for authentication.
+
+1. First, you want to install the passport dependency in gitbash:
+------------------------------------------
+npm install passport passport-local
+------------------------------------------
+passport will be used for authentication
+passport-local allows us to use user names and passwords for logging in as opposed to using google or something else.
 
 
 
