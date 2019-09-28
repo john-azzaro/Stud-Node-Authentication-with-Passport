@@ -78,6 +78,27 @@ app.get('/', function(req, res) {
 ----------------------------------------------
 
 Then, in your index.ejs template render out the variable with " <%= %> " and the name in the middle (i.e. <%= name %>)
+-----------------------------------------
+<h1>Hello there <%= name %></h1>                  ==> Hello there Joe
+-----------------------------------------
+
+
+PHASE 4: Setup the registration and login screens
+=================================================
+
+1. First, create pages for login and registration screens
+    * Create a view file named login.ejs
+    * Create a view file named register.ejs
+2. Second, create your routes for the login and registration.
+    For this step, you simply need to put in the code for rendering like we did for the home page but with the respective view.
+--------------------------------------------------
+app.get('/login', function (req, res) {
+    res.render('login.ejs');
+});
+app.get('/registration', function (req, res) {
+    res.render('registration');
+});
+--------------------------------------------------
 
 
 
