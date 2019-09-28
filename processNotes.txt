@@ -208,10 +208,10 @@ const bcrypt = require('bcrypt');
 
 
 
-
-
 PHASE 8: Add the POST routes for login and register
 ====================================================
+What this POST request will do is create a new user with a hashed password.  Remember that bcrypt is an asynchronous library, so you need to add async/await 
+modifiers to the function.
 ---------------------------------------------------------
 
 ---------------------------------------------------------

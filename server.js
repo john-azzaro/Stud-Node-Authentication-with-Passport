@@ -24,8 +24,19 @@ app.get('/register', function (req, res) {                 // Route for Registra
     res.render('register.ejs');                            // ... which renders the registration.ejs view.
 });
 
-app.post('/register', function(req, res) {
-    req.body.name
+app.post('/register', async function(req, res) {                               // To create a user...
+    try {                                                                      // create a try block to run our code...
+        const hashedPassword = bcrypt.hash(req.body.password, 10);             // hash the password from the user input (i.e. the body of the form where password is) and the value of 10 (good default).
+        users.push( {                                                          // Then we push this user to the local storage.
+            id:  Date.now().toString(),                                        // ... this is a uuid, but a database would do this by default.
+            name: req.body.name,                                               // ... this would get the name from the body of the form.
+            email: req.body.email,                                             // ... this would get the email from the body of the form.
+            password: hashedPassword                                           // ... this would get the password from the hashedPassword variable above.
+        });         
+        res.redirect('/login');                                                // and if everything works correctly, the response will be to redirect to the login page.                        
+    } catch(err) {                                                             // If the try block fails, send an error.
+        
+    }
 });
 
 
