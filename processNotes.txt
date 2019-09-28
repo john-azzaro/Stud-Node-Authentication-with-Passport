@@ -105,15 +105,16 @@ PHASE 4: Setup the registration and login screens
 
 
 
-PHASE 5: Create the HTML for your views
-=======================================
-1. First, create your regitration page:
+PHASE 5: Create route and html for yourtRegistration page
+==========================================================
+1. First, create your registration page:
 --------------------------------------------------
 <h1>Registration</h1>
 <form action="/register" method="POST">              <== here we are POSTing to a route with the name /register inside the server.
-
+    ...
 </form>
 --------------------------------------------------
+
 
 2. Then, since we are going to need a POST request to the server to /register, we need to create that route.
 ----------------------------------------------------
@@ -121,6 +122,7 @@ app.post('/register', function(req, res) {
 
 });
 ----------------------------------------------------
+
 
 3. Add in the html for your registration form
 -----------------------------------------------
@@ -141,12 +143,37 @@ app.post('/register', function(req, res) {
 </form>
 -----------------------------------------------
 
+
 4. Add an anchor tag to link to login after you register
 if everything is connected correctly, you will see that the login anchor tag leads to the login page.
 --------------------------------------------------
 <a href="/login">Login</a>
 --------------------------------------------------
 
+
+
+PHASE 6: Create your Login page (identical to your registration page)
+=====================================================================
+Same thing as the register, just change the register names to login and change the anchor tag to link back to the register page.
+------------------------------------------------------
+<h1>Login</h1>
+<form action="/login" method="POST">
+    <div>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="joe" required>
+    </div>
+    <div>
+        <label for="email">Email</label>
+        <input type="text" id="email" name="email" placeholder="joe@email.com" required>
+    </div>
+    <div>
+        <label for="password">Password</label>
+        <input type="text" id="password" name="password" placeholder="abc123" required>
+    </div>
+    <button type="submit">Login</button>
+</form>
+<a href="/register">Register</a>
+------------------------------------------------------
 
 
 
