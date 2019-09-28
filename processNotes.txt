@@ -45,60 +45,111 @@ PHASE 1: Setup basic server functionality
 
 PHASE 2: Setup basic routes
 ============================
-First, We need to make a home page that will be accessible to us when we are logged in.
+    First, We need to make a home page that will be accessible to us when we are logged in.
 
----------------------------------------------
-app.get('/', function(req, res) {                  // Home page route (that you need to be logged into to get to)
-    res.render('index.ejs');                       // The response will be to render a "index.ejs" page.
-});
----------------------------------------------
+    ---------------------------------------------
+        app.get('/', function(req, res) {                  // Home page route (that you need to be logged into to get to)
+            res.render('index.ejs');                       // The response will be to render a "index.ejs" page.
+        });
+    ---------------------------------------------
 
 
 
 PHASE 3: Create a "views" folder
 =================================
-1. First, create a "views" folder that will hold your pages.
-2. Second, create a "index.ejs" to render as a response to the user GET request.
-3. Third, in your index.ejs file, write a peice of test code and go to your localhost:3000 to see if everything is connected properly.
+    1. First, create a "views" folder that will hold your pages.
+    2. Second, create a "index.ejs" to render as a response to the user GET request.
+    3. Third, in your index.ejs file, write a peice of test code and go to your localhost:3000 to see if everything is connected properly.
+
+
 
 PHASE 4: Using ejs syntax
 ===========================
-4. To use ejs syntax, we need to tell the server to use ejs syntax (but remember to check and see if you installed the ejs dependency 
-in case it does not intially work).  Once this is doen you can use ejs in your templates.
--------------------------------------------
-app.set('view-engine', 'ejs');
--------------------------------------------
+    4. To use ejs syntax, we need to tell the server to use ejs syntax (but remember to check and see if you installed the ejs dependency 
+    in case it does not intially work).  Once this is doen you can use ejs in your templates.
+    -------------------------------------------
+        app.set('view-engine', 'ejs');
+    -------------------------------------------
 
--- To test the ejs system, you can try passing a object with a property comprised of a name and a value (i.e. Joe).
-----------------------------------------------
-app.get('/', function(req, res) { 
-    res.render('index.ejs', { name: 'joe'});        <== user object with the name joe.
-});
+    -- To test the ejs system, you can try passing a object with a property comprised of a name and a value (i.e. Joe).
+    ----------------------------------------------
+        app.get('/', function(req, res) { 
+            res.render('index.ejs', { name: 'joe'});        <== user object with the name joe.
+        });
 
-----------------------------------------------
+    ----------------------------------------------
 
-Then, in your index.ejs template render out the variable with " <%= %> " and the name in the middle (i.e. <%= name %>)
------------------------------------------
-<h1>Hello there <%= name %></h1>                  ==> Hello there Joe
------------------------------------------
+    Then, in your index.ejs template render out the variable with " <%= %> " and the name in the middle (i.e. <%= name %>)
+    -----------------------------------------
+        <h1>Hello there <%= name %></h1>                  ==> Hello there Joe
+    -----------------------------------------
+
 
 
 PHASE 4: Setup the registration and login screens
 =================================================
+    1. First, create pages for login and registration screens
+        * Create a view file named login.ejs
+        * Create a view file named register.ejs
+    2. Second, create your routes for the login and registration.
+        For this step, you simply need to put in the code for rendering like we did for the home page but with the respective view.
+    --------------------------------------------------
+        app.get('/login', function (req, res) {
+            res.render('login.ejs');
+        });
+        app.get('/register', function (req, res) {
+            res.render('register.ejs');
+        });
+    --------------------------------------------------
+    and you can test these routes with localhost:3000/login and localhost:3000/register.
 
-1. First, create pages for login and registration screens
-    * Create a view file named login.ejs
-    * Create a view file named register.ejs
-2. Second, create your routes for the login and registration.
-    For this step, you simply need to put in the code for rendering like we did for the home page but with the respective view.
+
+
+PHASE 5: Create the HTML for your views
+=======================================
+1. First, create your regitration page:
 --------------------------------------------------
-app.get('/login', function (req, res) {
-    res.render('login.ejs');
-});
-app.get('/registration', function (req, res) {
-    res.render('registration');
-});
+<h1>Registration</h1>
+<form action="/register" method="POST">              <== here we are POSTing to a route with the name /register inside the server.
+
+</form>
 --------------------------------------------------
+
+2. Then, since we are going to need a POST request to the server to /register, we need to create that route.
+----------------------------------------------------
+app.post('/register', function(req, res) {
+
+});
+----------------------------------------------------
+
+3. Add in the html for your registration form
+-----------------------------------------------
+<form action="/register" method="POST">
+    <div>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="joe" required>              <== Remember, "Type" is the same as the for in the label,"name" is how we access on server, etc.
+    </div>
+    <div>
+        <label for="email">Email</label>
+        <input type="text" id="email" name="email" placeholder="joe@email.com" required>
+    </div>
+    <div>
+        <label for="password">Password</label>
+        <input type="text" id="password" name="password" placeholder="abc123" required>
+    </div>
+    <button type="submit">Submit</button>
+</form>
+-----------------------------------------------
+
+4. Add an anchor tag to link to login after you register
+if everything is connected correctly, you will see that the login anchor tag leads to the login page.
+--------------------------------------------------
+<a href="/login">Login</a>
+--------------------------------------------------
+
+
+
+
 
 
 
