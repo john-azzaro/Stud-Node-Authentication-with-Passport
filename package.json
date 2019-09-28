@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/john-azzaro/Study-Node-Authentication-with-Passport#readme",
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "ejs": "^2.7.1",
     "express": "^4.17.1"
   },

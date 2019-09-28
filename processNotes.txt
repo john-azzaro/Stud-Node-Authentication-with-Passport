@@ -177,6 +177,47 @@ Same thing as the register, just change the register names to login and change t
 
 
 
+PHASE 7: Add "urlencoded" to access input in requests
+=======================================================
+Since information will be coming from forms, you need to use "urlencoded" and pass the option of "extended: false".  What this does is tell the application
+we want to take the email and password input and access them inside the request method in the POST method.
+--------------------------------------------
+app.use(express.urlencoded({ extended: false }));
+--------------------------------------------
+
+PHASE 8: Add local "users" storage
+===================================
+---------------------------------------------------
+const users = [];
+---------------------------------------------------
+
+
+
+PHASE 9: Load the bcrypt dependency to hash passwords.
+======================================================
+bcyrpt will let you hash and salt passwords for comarison and safety in authentication.
+1. In your gitbash, simply install the npm module:
+---------------------------
+npm install bcrypt
+---------------------------
+
+2. next, require the bcrypt library in your server file.
+-----------------------------------------------
+const bcrypt = require('bcrypt'); 
+----------------------------------------------- 
+
+
+
+
+
+PHASE 8: Add the POST routes for login and register
+====================================================
+---------------------------------------------------------
+
+---------------------------------------------------------
+
+
+
 
 
 
