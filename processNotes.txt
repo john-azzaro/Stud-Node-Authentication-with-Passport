@@ -39,3 +39,19 @@ Setup basic server functionality
         console.log(`Your app is listening on ${process.env.PORT || 3000}...`);
     });
     -------------------------------------------------------------------------------------
+
+
+Setup basic routes
+===================
+First, We need to make a home page that will be accessible to us when we are logged in.
+
+---------------------------------------------
+app.get('/', function(req, res) {                  // Home page route (that you need to be logged into to get to)
+    res.render('index.ejs');                       // The response will be to render a "index.ejs" page.
+});
+---------------------------------------------
+
+
+Create a "views" folder
+=======================
+The views folder.
