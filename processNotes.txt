@@ -283,7 +283,7 @@ PHASE 9: Install passport and associated dependencies for user login
         const passport = require('passport');
     -----------------------------------------------------
 
-    7. 
+    7. In the passport-config, create a variable called LocalStartegy to use passport-local
 
 
 
