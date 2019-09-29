@@ -272,6 +272,19 @@ PHASE 9: Install passport and associated dependencies for user login
         }
     ------------------------------------------------------
 
+    5. Require the passport-config function to use the information and call the function (and pass in the passport variable which needs to be added next)
+    -----------------------------------------------------------
+        const initializePassport = require('./passport-config')
+        initializePassport(passport);
+    -----------------------------------------------------------
+
+    6. require the passport library in server.js
+    -----------------------------------------------------
+        const passport = require('passport');
+    -----------------------------------------------------
+
+    7. 
+
 
 
 

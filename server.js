@@ -1,6 +1,11 @@
 const express = require('express');                // import express
 const app = express();                             // get app variable from express
 const bcrypt = require('bcrypt');                  // added bcrypt for security
+const passport = require('passport');              // add the passport library
+
+const initializePassport = require('./passport-config');     // call the passport config file for passport information
+initializePassport(passport);                                 
+
 
 const users = [];                                          // local storage for users (would be mongodb in production)
 
