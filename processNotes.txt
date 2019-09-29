@@ -107,151 +107,179 @@ PHASE 4: Setup the registration and login screens
 
 PHASE 5: Create route and html for yourtRegistration page
 ==========================================================
-1. First, create your registration page:
---------------------------------------------------
-<h1>Registration</h1>
-<form action="/register" method="POST">              <== here we are POSTing to a route with the name /register inside the server.
-    ...
-</form>
---------------------------------------------------
+    1. First, create your registration page:
+        --------------------------------------------------
+            <h1>Registration</h1>
+            <form action="/register" method="POST">              <== here we are POSTing to a route with the name /register inside the server.
+                ...
+            </form>
+        --------------------------------------------------
 
 
 2. Then, since we are going to need a POST request to the server to /register, we need to create that route.
-----------------------------------------------------
-app.post('/register', function(req, res) {
+    ----------------------------------------------------
+        app.post('/register', function(req, res) {
 
-});
-----------------------------------------------------
+        });
+    ----------------------------------------------------
 
 
 3. Add in the html for your registration form
 -----------------------------------------------
-<form action="/register" method="POST">
-    <div>
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" placeholder="joe" required>              <== Remember, "Type" is the same as the for in the label,"name" is how we access on server, etc.
-    </div>
-    <div>
-        <label for="email">Email</label>
-        <input type="text" id="email" name="email" placeholder="joe@email.com" required>
-    </div>
-    <div>
-        <label for="password">Password</label>
-        <input type="text" id="password" name="password" placeholder="abc123" required>
-    </div>
-    <button type="submit">Submit</button>
-</form>
------------------------------------------------
+    <form action="/register" method="POST">
+        <div>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="joe" required>              <== Remember, "Type" is the same as the for in the label,"name" is how we access on server, etc.
+        </div>
+        <div>
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" placeholder="joe@email.com" required>
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <input type="text" id="password" name="password" placeholder="abc123" required>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+    -----------------------------------------------
 
 
 4. Add an anchor tag to link to login after you register
-if everything is connected correctly, you will see that the login anchor tag leads to the login page.
---------------------------------------------------
-<a href="/login">Login</a>
---------------------------------------------------
+    if everything is connected correctly, you will see that the login anchor tag leads to the login page.
+    --------------------------------------------------
+        <a href="/login">Login</a>
+    --------------------------------------------------
 
 
 
 PHASE 6: Create your Login page (identical to your registration page)
 =====================================================================
-Same thing as the register, just change the register names to login and change the anchor tag to link back to the register page.
-------------------------------------------------------
-<h1>Login</h1>
-<form action="/login" method="POST">
-    <div>
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" placeholder="joe" required>
-    </div>
-    <div>
-        <label for="email">Email</label>
-        <input type="text" id="email" name="email" placeholder="joe@email.com" required>
-    </div>
-    <div>
-        <label for="password">Password</label>
-        <input type="text" id="password" name="password" placeholder="abc123" required>
-    </div>
-    <button type="submit">Login</button>
-</form>
-<a href="/register">Register</a>
-------------------------------------------------------
+    Same thing as the register, just change the register names to login and change the anchor tag to link back to the register page.
+    ------------------------------------------------------
+        <h1>Login</h1>
+        <form action="/login" method="POST">
+            <div>
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="joe" required>
+            </div>
+            <div>
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email" placeholder="joe@email.com" required>
+            </div>
+            <div>
+                <label for="password">Password</label>
+                <input type="text" id="password" name="password" placeholder="abc123" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <a href="/register">Register</a>
+    ------------------------------------------------------
 
 
 
 PHASE 7: Add "urlencoded" to access input in requests
 =======================================================
-Since information will be coming from forms, you need to use "urlencoded" and pass the option of "extended: false".  What this does is tell the application
-we want to take the email and password input and access them inside the request method in the POST method.
---------------------------------------------
-app.use(express.urlencoded({ extended: false }));
---------------------------------------------
+    Since information will be coming from forms, you need to use "urlencoded" and pass the option of "extended: false".  What this does is tell the application
+    we want to take the email and password input and access them inside the request method in the POST method.
+    --------------------------------------------
+        app.use(express.urlencoded({ extended: false }));
+    --------------------------------------------
 
-PHASE 8: Add local "users" storage
-===================================
----------------------------------------------------
-const users = [];
----------------------------------------------------
+    PHASE 8: Add local "users" storage
+    ===================================
+    ---------------------------------------------------
+       const users = [];
+    ---------------------------------------------------
 
 
 
 PHASE 9: Load the bcrypt dependency to hash passwords.
 ======================================================
-bcyrpt will let you hash and salt passwords for comarison and safety in authentication.
-1. In your gitbash, simply install the npm module:
----------------------------
-npm install bcrypt
----------------------------
+    bcyrpt will let you hash and salt passwords for comarison and safety in authentication.
+    1. In your gitbash, simply install the npm module:
+    ---------------------------
+        npm install bcrypt
+    ---------------------------
 
-2. next, require the bcrypt library in your server file.
------------------------------------------------
-const bcrypt = require('bcrypt'); 
------------------------------------------------ 
+    2. next, require the bcrypt library in your server file.
+    -----------------------------------------------
+        const bcrypt = require('bcrypt'); 
+    ----------------------------------------------- 
 
 
 
 PHASE 8: Add the POST route for register
 =========================================
-What this POST request will do is create a new user with a hashed password.  Remember that bcrypt is an asynchronous library, so you need to add async/await 
-modifiers to the function.
----------------------------------------------------------
-app.post('/register', async function(req, res) {                               // To create a user...
-    try {                                                                      // create a try block to run our code...
-        const hashedPassword = bcrypt.hash(req.body.password, 10);             // hash the password from the user input (i.e. the body of the form where password is) and the value of 10 (good default).
-        users.push( {                                                          // Then we push this user to the local storage.
-            id:  Date.now().toString(),                                        // ... this is a uuid, but a database would do this by default.
-            name: req.body.name,                                               // ... this would get the name from the body of the form.
-            email: req.body.email,                                             // ... this would get the email from the body of the form.
-            password: hashedPassword                                           // ... this would get the password from the hashedPassword variable above.
-        });         
-        res.redirect('/login');                                                // and if everything works correctly, the response will be to redirect to the login page.                        
-    } catch(err) {                                                             // If the try block fails, send an error.
-        res.redirect('/register', );                                           // and respond by redirecting to the register page.
-    }
-});
----------------------------------------------------------
+    What this POST request will do is create a new user with a hashed password.  Remember that bcrypt is an asynchronous library, so you need to add async/await 
+    modifiers to the function.
+    ---------------------------------------------------------
+        app.post('/register', async function(req, res) {                               // To create a user...
+            try {                                                                      // create a try block to run our code...
+                const hashedPassword = bcrypt.hash(req.body.password, 10);             // hash the password from the user input (i.e. the body of the form where password is) and the value of 10 (good default).
+                users.push( {                                                          // Then we push this user to the local storage.
+                    id:  Date.now().toString(),                                        // ... this is a uuid, but a database would do this by default.
+                    name: req.body.name,                                               // ... this would get the name from the body of the form.
+                    email: req.body.email,                                             // ... this would get the email from the body of the form.
+                    password: hashedPassword                                           // ... this would get the password from the hashedPassword variable above.
+                });         
+                res.redirect('/login');                                                // and if everything works correctly, the response will be to redirect to the login page.                        
+            } catch(err) {                                                             // If the try block fails, send an error.
+                res.redirect('/register', );                                           // and respond by redirecting to the register page.
+            }
+        });
+    ---------------------------------------------------------
 
-And if you want to check and see if your post method worked, simply log the "users" variable at the end of the function we are using for local storage to see your user, email and information.
-As an example, you should see this:
-----------------------------------------------------------
-[ { id: '1569714335487',
-    name: 'joe',
-    email: 'joe@email.com',
-    password: '$2b$10$./tzKUDOSIMdag7ZwFCw6uAJJd9AeCG9EU13FKSde5rTeO0Ox7QUm' } ]        <== hashed password
-----------------------------------------------------------
-Also remember that since this is all done with local storage (i.e. not a database), this will reset so you need to re-enter the information.
+    And if you want to check and see if your post method worked, simply log the "users" variable at the end of the function we are using for local storage to see your user, email and information.
+    As an example, you should see this:
+    ----------------------------------------------------------
+        [ { id: '1569714335487',
+            name: 'joe',
+            email: 'joe@email.com',
+            password: '$2b$10$./tzKUDOSIMdag7ZwFCw6uAJJd9AeCG9EU13FKSde5rTeO0Ox7QUm' } ]        <== hashed password
+    ----------------------------------------------------------
+    Also remember that since this is all done with local storage (i.e. not a database), this will reset so you need to re-enter the information.
 
 
 
-PHASE 9: Add the login route
-=============================
-While checking to see that the users name and passoword are the same is relatively easy, to persist that user across all the different requests they will make can be a bit tricky.
-To make things more streamlined, use Passport.js which is widely used for authentication.
+PHASE 9: Install passport and associated dependencies for user login
+=====================================================================
+    While checking to see that the users name and passoword are the same is relatively easy, to persist that user across all the different requests they will make can be a bit tricky.
+    To make things more streamlined, use Passport.js which is widely used for authentication.
 
-1. First, you want to install the passport dependency in gitbash:
-------------------------------------------
-npm install passport passport-local
-------------------------------------------
-passport will be used for authentication
-passport-local allows us to use user names and passwords for logging in as opposed to using google or something else.
+    1. First, you want to install the passport dependency in gitbash:
+    ------------------------------------------
+        npm install passport passport-local
+    ------------------------------------------
+    passport will be used for authentication
+    passport-local allows us to use user names and passwords for logging in as opposed to using google or something else.
 
+    2. Additionally, in order to store and persist the user across different pages, you need to install express session.
+    ----------------------------------------
+        npm install express-session
+    ----------------------------------------
+
+    3. Also, we need a way to display messages if the login fails called express flash.
+    This will be used by passport to show a neat popup for the errors.
+    ----------------------------------------------
+        npm install express-flash
+    ----------------------------------------------
+
+    4. To keep the server.js file tidy, create a passport-config.js
+    All of your passport related information to passport.  Additionally, all of the information will be inside a function called initialize which we pass passport to.
+    ------------------------------------------------------
+        function initialize(passport) {
+            ...
+        }
+    ------------------------------------------------------
+
+
+
+
+
+
+
+
+PHASE 10: Add the login route
+==============================
 
 
