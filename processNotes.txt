@@ -321,14 +321,24 @@ PHASE 9: Install passport and associated dependencies for user login
 
     --------------------------------------------------------------------------------------------------
 
+8. Then, you want to update the initializePassport by passing in a function that takes an email and finds an email equal to the email passed in
+-------------------------------------------------------
+initializePassport(passport, email => users.find(user => user.email === email));   
+-------------------------------------------------------
+
+
+
+PHASE 10: Add use statements so the server knows how to use passport
+=====================================================================
+first, we want to add flash, which is where we will get our messages for user login.
+to do this, of course you need to require it in:
+-------------------------------------------
+const flash = require("express-flash");  
+-------------------------------------------
+Then, 
 
 
 
 
-
-
-
-PHASE 10: Add the login route
-==============================
 
 
