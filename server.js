@@ -4,7 +4,8 @@ const bcrypt = require('bcrypt');                  // added bcrypt for security
 const passport = require('passport');              // add the passport library
 
 const initializePassport = require('./passport-config');     // call the passport config file for passport information
-initializePassport(passport);                                 
+initializePassport(passport, email => users.find(user => user.email === email));       // Function for finding user based on the email and the passport we are configuring
+                               
 
 
 const users = [];                                          // local storage for users (would be mongodb in production)
