@@ -35,7 +35,7 @@ app.use(passport.session());                                // to store variable
 
 
 app.get('/', function(req, res) {                          // Route for Home Page (that you need to be logged into to get to)
-    res.render('index.ejs', { name: 'joe'});               // The response will be to render a "index.ejs" page.
+    res.render('index.ejs', { name: req.user.name });      // The response will be to render a "index.ejs" page with the user name of the registered name
 });
 
 app.get('/login', function (req, res) {                    // Route for Login Page
@@ -66,6 +66,10 @@ app.post('/register', async function(req, res) {                               /
         res.redirect('/register', );                                           // and respond by redirecting to the register page.
     }                                                    
 });
+
+function checkAuthentication(req, res, next) {
+
+}
 
 app.listen(process.env.PORT || 3000, function() {                                             // listen on port 3000 for requests...
     console.log(`Your app is listening on port ${process.env.PORT || 3000}...`);
