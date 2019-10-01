@@ -377,6 +377,23 @@ Then, setup session so that the variables we use persist through the session:
 ------------------------------------------------------
 
 
+PHASE 12: Setting POST request for login using Passport authentication middleware
+=================================================================================
+Before I had put in a relatively standard POST request:
+----------------------------------------------------------------
+app.post('/login', function(req, res) {                    // Route to POST login
+    
+});
+----------------------------------------------------------------
+
+However, now we can use the passport authentication middleware.
+----------------------------------------------------------------
+
+
+
+----------------------------------------------------------------
+
+
 
 
 
