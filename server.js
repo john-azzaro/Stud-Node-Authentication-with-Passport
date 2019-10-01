@@ -27,6 +27,7 @@ app.use(session( {                                         // use the session mi
     saveUninitialized: false,                              // should you save an empty value in the session... we dont so its false.
 }));
 
+app.use(passport.initialize());
 
 
 app.get('/', function(req, res) {                          // Route for Home Page (that you need to be logged into to get to)

@@ -365,6 +365,13 @@ PHASE 10: Add use statements so the server knows how to use passport
     -------------------------------------
 
 
+PHASE 11: Setup passport
+========================
+First, setup passport:
+------------------------------------------------------
+    app.use(passport.initialize());
+------------------------------------------------------
+
 
 
 
