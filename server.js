@@ -23,6 +23,8 @@ app.use(express.urlencoded({ extended: false }));          // tells the applicat
 app.use(flash());                                          // use the flash middleware
 app.use(session( {                                         // use the session middleware
     secret: process.env.SESSION_SECRET,                    // the "secret" is a key that will encrypt all the information which is gotten from environment variables, of which "SESSION_SECRET" will be put inside .env file.
+    resave: false,                                         // should we resave the session variables if nothing has changed (we dont so its false)
+    saveUninitialized: false,                              // should you save an empty value in the session... we dont so its false.
 }));
 
 
