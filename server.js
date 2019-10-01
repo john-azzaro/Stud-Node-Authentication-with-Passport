@@ -27,7 +27,8 @@ app.use(session( {                                         // use the session mi
     saveUninitialized: false,                              // should you save an empty value in the session... we dont so its false.
 }));
 
-app.use(passport.initialize());
+app.use(passport.initialize());                            // Setup passport middleware to setup basics.
+app.use(passport.session());                                // to store variables across the entire session, use passport.session middleware (works with app.use(session) above).
 
 
 app.get('/', function(req, res) {                          // Route for Home Page (that you need to be logged into to get to)

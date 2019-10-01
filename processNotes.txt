@@ -371,6 +371,10 @@ First, setup passport:
 ------------------------------------------------------
     app.use(passport.initialize());
 ------------------------------------------------------
+Then, setup session so that the variables we use persist through the session:
+------------------------------------------------------
+    app.use(passport.session());
+------------------------------------------------------
 
 
 
