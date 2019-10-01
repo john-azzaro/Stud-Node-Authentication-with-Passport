@@ -3,12 +3,11 @@ const bcrypt = require('bcrypt')                                  // take in bcr
 
 
 
-async function initialize(passport, getUserByEmail, getUserById) {
+function initialize(passport, getUserByEmail, getUserById) {
     const authenticateUser = async function(email, password, done) {              // Second, have authenticateUser with email and password passed in and then done when we are done authenticting the user. This is what is called from our email password to make sure the user is correct.
-    const user =  getUserByEmail(email)                                           // 1. Get user by email or return null if there is no email (at this point the function has not been created yet but planning ahead)
-       
-    if(user === null) {                                                           // 2. Check to see if there is a user.
-        return done(null, false, { message: "No user with that email found"});    // ... if there is no user, return "done()" and pass the error (in this case null bc no error only null) and return the user we found (i.e. no user so "false")
+    const user = getUserByEmail(email);                                           // 1. Get user by email or return null if there is no email (at this point the function has not been created yet but planning ahead)      
+    if(user == null) {                                                           // 2. Check to see if there is a user.
+        return done(null, false, { message: 'No user with that email' });    // ... if there is no user, return "done()" and pass the error (in this case null bc no error only null) and return the user we found (i.e. no user so "false")
     }
        
     try {                                                                         // 3. Then you need to make sure the password matches the password provided with bcrypt with a try/catch block/

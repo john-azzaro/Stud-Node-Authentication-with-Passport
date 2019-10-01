@@ -40,7 +40,7 @@ app.get('/login', function (req, res) {                    // Route for Login Pa
 app.post('/login', passport.authenticate('local', {
     successRedirect: '/',                                    // ... if the login is successful, redirect to home page.
     failureRedirect: '/login',                                // ... if the login is unsuccessful, redirect back to login screen.
-    failureFlash: 'true'                                     // ... and if it is a failure, have a flash message (which will be the message in the initialize function in passport.congfig or password incorrect depending on the error)
+    failureFlash: 'true'                                     // ... and if it is a failure, have a flash message (which will be the message in the initialize function in passport.congfig or password incorrect depending on the)
 }));       
 
 app.get('/register', function (req, res) {                 // Route for Registration Page
