@@ -17,8 +17,8 @@ app.set('view-engine', 'ejs');                             // use ejs view engin
 app.use(express.urlencoded({ extended: false }));          // tells the application to take the email and password input and use them in the methods.
 
 app.use(flash());                                          // use the flash middleware
-app.use(session( {                                           // use the session middleware
-    secret: "",
+app.use(session( {                                         // use the session middleware
+    secret: process.env.SESSION_SECRET,                    // the "secret" is a key that will encrypt all the information which is gotten from environment variables, of which "SESSION_SECRET" will be put inside .env file.
 }));
 
 

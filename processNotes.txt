@@ -345,7 +345,14 @@ app.use(flash());
 app.use(session());
 ------------------------------------------
 
-For session, it takes a number of options.  In this case, we want to 
+For session, it takes a number of options.  In this case, we want to add a "secret", which is essentially a encryption method using an environment variable.
+This environment variable "SESSION_SECRET" will be put inside the environment variables file.
+
+---------------------------------------------------------
+app.use(session( {          
+    secret: process.env.SESSION_SECRET,   
+}));
+---------------------------------------------------------
 
 
 
