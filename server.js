@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== 'production') {                // to load in environment variables, if we are in development
+    require('dotenv').config();                             // require the dveelopment dependency and add config() to load in all the environment variables and set them in process.env(see app.use(session)).
+}
+
 const express = require('express');                         // import express
 const app = express();                                      // get app variable from express
 const bcrypt = require('bcrypt');                           // added bcrypt for security

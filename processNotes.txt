@@ -354,6 +354,9 @@ app.use(session( {
 }));
 ---------------------------------------------------------
 
+Now at this point, you need to load in your environment variables at the top of the server.js file.
+To do this, all you need to do is add an if statement 
+
 
 
 
