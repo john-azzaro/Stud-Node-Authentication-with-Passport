@@ -322,9 +322,9 @@ PHASE 9: Install passport and associated dependencies for user login
     --------------------------------------------------------------------------------------------------
 
 8. Then, you want to update the initializePassport by passing in a function that takes an email and finds an email equal to the email passed in
--------------------------------------------------------
-    initializePassport(passport, email => users.find(user => user.email === email));   
--------------------------------------------------------
+    -------------------------------------------------------
+        initializePassport(passport, email => users.find(user => user.email === email));   
+    -------------------------------------------------------
 
 
 
@@ -367,32 +367,37 @@ PHASE 10: Add use statements so the server knows how to use passport
 
 PHASE 11: Setup passport
 ========================
-First, setup passport:
-------------------------------------------------------
-    app.use(passport.initialize());
-------------------------------------------------------
-Then, setup session so that the variables we use persist through the session:
-------------------------------------------------------
-    app.use(passport.session());
-------------------------------------------------------
+    First, setup passport:
+    ------------------------------------------------------
+        app.use(passport.initialize());
+    ------------------------------------------------------
+    Then, setup session so that the variables we use persist through the session:
+    ------------------------------------------------------
+        app.use(passport.session());
+    ------------------------------------------------------
 
 
-PHASE 12: Setting POST request for login using Passport authentication middleware
-=================================================================================
-Before I had put in a relatively standard POST request:
-----------------------------------------------------------------
-app.post('/login', function(req, res) {                    // Route to POST login
-    
-});
-----------------------------------------------------------------
+    PHASE 12: Setting POST request for login using Passport authentication middleware
+    =================================================================================
+    Before I had put in a relatively standard POST request:
+    ----------------------------------------------------------------
+        app.post('/login', function(req, res) {                    // Route to POST login
+            
+        });
+    ----------------------------------------------------------------
 
-However, now we can use the passport authentication middleware.
-----------------------------------------------------------------
+    However, now we can use the passport authentication middleware.
+    ----------------------------------------------------------------
+        app.post('/login', passport.authenticate('local', {
+            successRedirect: '/',                                    // ... if the login is successful, redirect to home page.
+            failureRedirect: '/login',                                // ... if the login is unsuccessful, redirect back to login screen.
+            failureFlash: 'true'                                     // ... and if it is a failure, have a flash message (which will be the message in the initialize function in passport.congfig or password incorrect depending on the error)
+        })); 
+    ----------------------------------------------------------------
 
 
-
-----------------------------------------------------------------
-
+PHASE 12: Configure error messages for login
+============================================
 
 
 

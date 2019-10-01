@@ -39,7 +39,8 @@ app.get('/login', function (req, res) {                    // Route for Login Pa
                                                             // To use passport as our authentication for login, we use passport.authenticate with the "local" strategy and pass a list of option of things to modify (i.e. where to go if there is a success, failure , etc).
 app.post('/login', passport.authenticate('local', {
     successRedirect: '/',                                    // ... if the login is successful, redirect to home page.
-    failureRedirect: '/login'                                // ... if the login is unsuccessful, redirect back to login screen.
+    failureRedirect: '/login',                                // ... if the login is unsuccessful, redirect back to login screen.
+    failureFlash: 'true'                                     // ... and if it is a failure, have a flash message (which will be the message in the initialize function in passport.congfig or password incorrect depending on the error)
 }));       
 
 app.get('/register', function (req, res) {                 // Route for Registration Page
