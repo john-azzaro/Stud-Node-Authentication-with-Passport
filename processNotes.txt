@@ -335,7 +335,18 @@ to do this, of course you need to require it in:
 -------------------------------------------
 const flash = require("express-flash");  
 -------------------------------------------
-Then, 
+Then, you need to add session so the login can persist.  So, require in session:
+--------------------------------------------
+const session = require("express-session"); 
+--------------------------------------------
+Then, add the app.use functions:
+------------------------------------------
+app.use(flash());
+app.use(session());
+------------------------------------------
+
+For session, it takes a number of options.  In this case, we want to 
+
 
 
 

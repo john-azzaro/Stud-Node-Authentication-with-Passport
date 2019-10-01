@@ -5,17 +5,21 @@ const passport = require('passport');                       // add the passport 
 const flash = require("express-flash");                     // add flash (for messages)
 const session = require("express-session");                 // add session to persist login for user across app.
 
+
 const initializePassport = require('./passport-config');     // call the passport config file for passport information
 initializePassport(passport, email => {
     return users.find(user => user.email === email )});       // Function for finding user based on the email and the passport we are configuring
-                               
-
+                             
 
 const users = [];                                          // local storage for users (would be mongodb in production)
 
-app.set('view-engine', 'ejs');
-app.use(express.urlencoded({ extended: false }));
-app.use(flash())
+app.set('view-engine', 'ejs');                             // use ejs view engine
+app.use(express.urlencoded({ extended: false }));          // tells the application to take the email and password input and use them in the methods.
+
+app.use(flash());                                          // use the flash middleware
+app.use(session( {                                           // use the session middleware
+    secret: "",
+}));
 
 
 
