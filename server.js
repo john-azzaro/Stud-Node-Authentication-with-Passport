@@ -11,8 +11,13 @@ const session = require("express-session");                 // add session to pe
 
 
 const initializePassport = require('./passport-config');     // call the passport config file for passport information
-initializePassport(passport, email => {
-    return users.find(user => user.email === email )});       // Function for finding user based on the email and the passport we are configuring                           
+initializePassport(                                          // Function for finding user based on the email and the passport we are configuring     
+    passport,                                                
+    email => users.find(user => user.email === email),
+    id => users.find(user => user.id === id)                 // and to find the user by comparing id.
+  )
+    
+                         
 
 const users = [];                                          // local storage for users (would be mongodb in production)
 

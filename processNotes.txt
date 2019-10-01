@@ -156,23 +156,19 @@ PHASE 6: Create your Login page (identical to your registration page)
 =====================================================================
     Same thing as the register, just change the register names to login and change the anchor tag to link back to the register page.
     ------------------------------------------------------
-        <h1>Login</h1>
-        <form action="/login" method="POST">
-            <div>
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" placeholder="joe" required>
-            </div>
-            <div>
-                <label for="email">Email</label>
-                <input type="text" id="email" name="email" placeholder="joe@email.com" required>
-            </div>
-            <div>
-                <label for="password">Password</label>
-                <input type="text" id="password" name="password" placeholder="abc123" required>
-            </div>
-            <button type="submit">Login</button>
-        </form>
-        <a href="/register">Register</a>
+    <h1>Login</h1>
+    <form action="/login" method="POST">
+    <div>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+    </div>
+    <div>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+    </div>
+    <button type="submit">Login</button>
+    </form>
+    <a href="/register">Register</a>
     ------------------------------------------------------
 
 
@@ -398,12 +394,46 @@ PHASE 11: Setup passport
 
 PHASE 12: Configure error messages for login
 ============================================
--------------------------------------------------------
-<% if (messages.error) { %>                       <== if there is an error being sent
-    <%= messages.error %>                         <== render that error on the screen
-<% } %>
--------------------------------------------------------
+    -------------------------------------------------------
+    <h1>Login</h1>
+    <% if (messages.error) { %>                                  <== if there is an error being sent
+        <%= messages.error %>                                    <== render that error on the screen
+    <% } %>
+    <% if (messages.error) { %>
+    <%= messages.error %>
+    <% } %>
+    <form action="/login" method="POST">
+    <div>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+    </div>
+    <div>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+    </div>
+    <button type="submit">Login</button>
+    </form>
+    <a href="/register">Register</a>
+    -------------------------------------------------------
 
+
+PHASE 13: Implement serializeUser and deserializeUser
+=====================================================
+    ------------------------------------------------
+    passport.serializeUser(function(user, done) { done(null, user.id)});                        // to serialize the user and store inside the session, call serializeUser take a function and pass user and done to store inside the session.
+    passport.deserializeUser(function(id, done) { return done(null, getUserById(id)) });        // deserialize outside session if needed.
+    ------------------------------------------------
+
+PHASE 14: Add find id to initialize passport
+==============================================
+add a fnd id property to the initializePassport function/
+-----------------------------------------------
+initializePassport(     
+    passport,                                                
+    email => users.find(user => user.email === email),
+    id => users.find(user => user.id === id)                 // and to find the user by comparing id.
+  )
+-----------------------------------------------
 
 
 

@@ -21,9 +21,9 @@ function initialize(passport, getUserByEmail, getUserById) {
     }                                    
 }; 
 
-    passport.use(new LocalStrategy({ usernameField: 'email' }, authenticateUser));   // First, use local strategy and pass user name field (i.e. email but it could be name or whatever) and the call to authenticate the user.
-    passport.serializeUser(function(user, done) {});                                    // Third, to serialize the user and store inside the session, call serializeUser take a function and pass user and done to store inside the session.
-    passport.deserializeUser(function(id, done) {});                                   // Fourth, deserialize outside session if needed.
+    passport.use(new LocalStrategy({ usernameField: 'email' }, authenticateUser));              // First, use local strategy and pass user name field (i.e. email but it could be name or whatever) and the call to authenticate the user.
+    passport.serializeUser(function(user, done) { done(null, user.id)});                        // Third, to serialize the user and store inside the session, call serializeUser take a function and pass user and done to store inside the session.
+    passport.deserializeUser(function(id, done) { return done(null, getUserById(id)) });        // Fourth, deserialize outside session if needed.
 }
 
 module.exports = initialize;
