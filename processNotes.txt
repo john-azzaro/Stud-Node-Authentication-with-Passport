@@ -398,6 +398,11 @@ PHASE 11: Setup passport
 
 PHASE 12: Configure error messages for login
 ============================================
+-------------------------------------------------------
+<% if (messages.error) { %>                       <== if there is an error being sent
+    <%= messages.error %>                         <== render that error on the screen
+<% } %>
+-------------------------------------------------------
 
 
 
