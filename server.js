@@ -38,32 +38,32 @@ app.get('/', checkAuthentication, function(req, res) {     // Route for Home Pag
     res.render('index.ejs', { name: req.user.name });      // The response will be to render a "index.ejs" page with the user name of the registered name
 });
 
-app.get('/login', function (req, res) {                    // Route for Login Page
-    res.render('login.ejs');                               // ... which renders the login.ejs view.
+app.get('/login', checkNotAuthentication, function (req, res) {     // Route for Login Page (and check to see if the user is not authenticated)
+    res.render('login.ejs');                                        // ... which renders the login.ejs view.
 });
-                                                            // To use passport as our authentication for login, we use passport.authenticate with the "local" strategy and pass a list of option of things to modify (i.e. where to go if there is a success, failure , etc).
-app.post('/login', passport.authenticate('local', {
-    successRedirect: '/',                                    // ... if the login is successful, redirect to home page.
-    failureRedirect: '/login',                                // ... if the login is unsuccessful, redirect back to login screen.
-    failureFlash: 'true'                                     // ... and if it is a failure, have a flash message (which will be the message in the initialize function in passport.congfig or password incorrect depending on the)
+                                                                                  // To use passport as our authentication for login, we use passport.authenticate with the "local" strategy and pass a list of option of things to modify (i.e. where to go if there is a success, failure , etc).
+app.post('/login', checkNotAuthentication, passport.authenticate('local', {
+    successRedirect: '/',                                                         // ... if the login is successful, redirect to home page.
+    failureRedirect: '/login',                                                    // ... if the login is unsuccessful, redirect back to login screen.
+    failureFlash: 'true'                                                          // ... and if it is a failure, have a flash message (which will be the message in the initialize function in passport.congfig or password incorrect depending on the)
 }));       
 
-app.get('/register', function (req, res) {                 // Route for Registration Page
-    res.render('register.ejs');                            // ... which renders the registration.ejs view.
+app.get('/register', checkNotAuthentication, function (req, res) {        // Route for Registration Page
+    res.render('register.ejs');                                           // ... which renders the registration.ejs view.
 });
 
-app.post('/register', async function(req, res) {                               // To create a user...
-    try {                                                                      // create a try block to run our code...
-        const hashedPassword = await bcrypt.hash(req.body.password, 10);       // hash the password from the user input (i.e. the body of the form where password is) and the value of 10 (good default).
+app.post('/register', checkNotAuthentication, async function(req, res) {      // To create a user...
+    try {                                                                     // create a try block to run our code...
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);      // hash the password from the user input (i.e. the body of the form where password is) and the value of 10 (good default).
         users.push({                                                          // Then we push this user to the local storage.
-            id:  Date.now().toString(),                                        // ... this is a uuid, but a database would do this by default.
-            name: req.body.name,                                               // ... this would get the name from the body of the form.
-            email: req.body.email,                                             // ... this would get the email from the body of the form.
-            password: hashedPassword                                           // ... this would get the password from the hashedPassword variable above.
+            id:  Date.now().toString(),                                       // ... this is a uuid, but a database would do this by default.
+            name: req.body.name,                                              // ... this would get the name from the body of the form.
+            email: req.body.email,                                            // ... this would get the email from the body of the form.
+            password: hashedPassword                                          // ... this would get the password from the hashedPassword variable above.
         })         
-        res.redirect('/login');                                                // and if everything works correctly, the response will be to redirect to the login page.                        
-    } catch(err) {                                                             // If the try block fails, send an error.
-        res.redirect('/register', );                                           // and respond by redirecting to the register page.
+        res.redirect('/login');                                               // and if everything works correctly, the response will be to redirect to the login page.                        
+    } catch(err) {                                                            // If the try block fails, send an error.
+        res.redirect('/register', );                                          // and respond by redirecting to the register page.
     }                                                    
 });
  
@@ -77,7 +77,7 @@ function checkAuthentication(req, res, next) {                             // mi
 
 function checkNotAuthentication(req, res, next) {                             // middleware function that checks to see if the user is authenticated.
     if (req.isAuthenticated()) {                                              // if user is authenticated...
-       res.redirect('/')                                                      // redirect to the home page
+       return res.redirect('/')                                              // redirect to the home page
     } else {
        next();                                                                // if not, then continue on with the call with next();
     }
