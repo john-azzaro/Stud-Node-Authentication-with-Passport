@@ -76,10 +76,10 @@ function checkAuthentication(req, res, next) {                             // mi
 }
 
 function checkNotAuthentication(req, res, next) {                             // middleware function that checks to see if the user is authenticated.
-    if (req.isAuthenticated()) {                                           
-       res.redirect('/')                                                      
+    if (req.isAuthenticated()) {                                              // if user is authenticated...
+       res.redirect('/')                                                      // redirect to the home page
     } else {
-       res.redirect('/login');                                             // if false, redirect to the login page.
+       next();                                                                // if not, then continue on with the call with next();
     }
 }
 

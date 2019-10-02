@@ -484,6 +484,17 @@ PHASE 16:  Account for NO authentication
 In this case, you dont want the user to be able to go back to the login screen if they are already logged in.
 So you need to add roughly the same thing but for non authentication.
 -----------------------------------------------------
-
+function checkNotAuthentication(req, res, next) {                             // middleware function that checks to see if the user is authenticated.
+    if (req.isAuthenticated()) {                                              // if user is authenticated...
+       res.redirect('/')                                                      // redirect to the home page
+    } else {
+       next();                                                                // if not, then continue on with the call with next();
+    }
+}
 -----------------------------------------------------
+
+Then you call this checkNotAuthentication wherever you want you want to see if a user is NOT authenticated.
+-------------------------------------------
+
+-------------------------------------------
 
