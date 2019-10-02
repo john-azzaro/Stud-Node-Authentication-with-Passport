@@ -438,39 +438,44 @@ initializePassport(
 
 PHASE 15: Add the name to the login route to the home page
 =========================================================
-----------------------------------------------------
-app.get('/', function(req, res) {                          // Route for Home Page (that you need to be logged into to get to)
-    res.render('index.ejs', { name: req.user.name });      // The response will be to render a "index.ejs" page with the user name of the registered name
-});
+    ----------------------------------------------------
+    app.get('/', function(req, res) {                          // Route for Home Page (that you need to be logged into to get to)
+        res.render('index.ejs', { name: req.user.name });      // The response will be to render a "index.ejs" page with the user name of the registered name
+    });
 
-----------------------------------------------------
+    ----------------------------------------------------
 
 
-PHASE 16: Protect routes when the user is not logged in
-=======================================================
-To do this, you simply need to add a checkAuthorization middleware function in the passport-config file.
---------------------------------------------
-function checkAuthentication(req, res, next) {
-    ....
-}
---------------------------------------------
-
-Then, add an if then statement to check and see if the user is authenticated or not.  
-If authenticated return next... if not, redirect to login screen.
-
---------------------------
-function checkAuthentication(req, res, next) {                             // middleware function that checks to see if the user is authenticated.
-    if (req.isAuthenticated()) {                                           // if the request user is authenticated...
-       return next();                                                      // if true, return call to next (everything works)
-    } else {
-       res.redirect('/login');                                             // if false, redirect to the login page.
+    PHASE 16: Protect routes when the user is not logged in
+    =======================================================
+    To do this, you simply need to add a checkAuthorization middleware function in the passport-config file.
+    --------------------------------------------
+    function checkAuthentication(req, res, next) {
+        ....
     }
-}
---------------------------
+    --------------------------------------------
 
-Lastly, add the checkAuthentication as an argument in the app.get home route.
-----------------------------------------------------
+    Then, add an if then statement to check and see if the user is authenticated or not.  
+    If authenticated return next... if not, redirect to login screen.
 
-----------------------------------------------------
+    --------------------------
+    function checkAuthentication(req, res, next) {                             // middleware function that checks to see if the user is authenticated.
+        if (req.isAuthenticated()) {                                           // if the request user is authenticated...
+        return next();                                                      // if true, return call to next (everything works)
+        } else {
+        res.redirect('/login');                                             // if false, redirect to the login page.
+        }
+    }
+    --------------------------
+
+    Lastly, add the checkAuthentication as an argument in the app.get home route.
+    ----------------------------------------------------
+    app.get('/', checkAuthentication, function(req, res) {       <== when the route is requested, checkAuthenticate will get called first, and if there is a problem it will redirect the user.
+        res.render('index.ejs', { name: req.user.name });      
+    });
+    ----------------------------------------------------
+
+    So what did this do in a nutshell?  When we try to request localhost:3000 now, it will redirect to the login page because you are not logged in. 
+    Once you log in, it will redirect to the home page.
 
 
