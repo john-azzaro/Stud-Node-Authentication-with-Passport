@@ -66,6 +66,16 @@ app.post('/register', checkNotAuthentication, async function(req, res) {      //
         res.redirect('/register', );                                          // and respond by redirecting to the register page.
     }                                                    
 });
+
+app.delete('/logout', function(req, res) {                                  // To logout, we need to do a delete request.
+    req.logOut();                                                           // request log out (this is setup by passport)...
+    req.redirect('/login');                                                 // and send back to the login screen.
+});                                                              
+
+
+
+
+
  
 function checkAuthentication(req, res, next) {                             // middleware function that checks to see if the user is authenticated.
     if (req.isAuthenticated()) {                                           // if the request user is authenticated...

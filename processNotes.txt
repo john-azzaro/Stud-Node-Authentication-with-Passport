@@ -528,4 +528,13 @@ app.post('/register', checkNotAuthentication, async function(req, res) {        
 });
 --------------------------------------------------------------
 
-When you do this, the logged in user should not be able to go back to the login screen,
+When you do this, the logged in user should not be able to go back to the login screen.
+
+
+
+PHASE 17: Setup the log out route
+=================================
+To log out the user, we need to use a delete request.  However, dekete is not direclty supported by forms, so we need to use a library called method-override.
+----------------------------------
+npm install method-override
+----------------------------------
