@@ -479,3 +479,11 @@ PHASE 15: Add the name to the login route to the home page
     Once you log in, it will redirect to the home page.
 
 
+PHASE 16:  Account for NO authentication
+========================================
+In this case, you dont want the user to be able to go back to the login screen if they are already logged in.
+So you need to add roughly the same thing but for non authentication.
+-----------------------------------------------------
+
+-----------------------------------------------------
+
