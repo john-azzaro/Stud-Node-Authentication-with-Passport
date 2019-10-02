@@ -24,17 +24,17 @@ const users = [];                                          // local storage for 
 app.set('view-engine', 'ejs');                             // use ejs view engine
 
 app.use(express.urlencoded({ extended: false }));          // tells the application to take the email and password input and use them in the methods.
-app.use(flash());                                          // use the flash middleware
-app.use(session( {                                         // use the session middleware
+app.use(flash());                                          // use the flash 
+app.use(session( {                                         // use the session 
     secret: process.env.SESSION_SECRET,                    // the "secret" is a key that will encrypt all the information which is gotten from environment variables, of which "SESSION_SECRET" will be put inside .env file.
     resave: false,                                         // should we resave the session variables if nothing has changed (we dont so its false)
     saveUninitialized: false,                              // should you save an empty value in the session... we dont so its false.
 }));
-app.use(passport.initialize());                            // Setup passport middleware to setup basics.
-app.use(passport.session());                                // to store variables across the entire session, use passport.session middleware (works with app.use(session) above).
+app.use(passport.initialize());                            // Setup passport  to setup basics.
+app.use(passport.session());                                // to store variables across the entire session, use passport.session (works with app.use(session) above).
 
 
-app.get('/', function(req, res) {                          // Route for Home Page (that you need to be logged into to get to)
+app.get('/', checkAuthentication, function(req, res) {     // Route for Home Page (that you need to be logged into to get to)... and also pass checkAuthenticate for session permission.
     res.render('index.ejs', { name: req.user.name });      // The response will be to render a "index.ejs" page with the user name of the registered name
 });
 
@@ -54,7 +54,7 @@ app.get('/register', function (req, res) {                 // Route for Registra
 
 app.post('/register', async function(req, res) {                               // To create a user...
     try {                                                                      // create a try block to run our code...
-        const hashedPassword = await bcrypt.hash(req.body.password, 10);             // hash the password from the user input (i.e. the body of the form where password is) and the value of 10 (good default).
+        const hashedPassword = await bcrypt.hash(req.body.password, 10);       // hash the password from the user input (i.e. the body of the form where password is) and the value of 10 (good default).
         users.push({                                                          // Then we push this user to the local storage.
             id:  Date.now().toString(),                                        // ... this is a uuid, but a database would do this by default.
             name: req.body.name,                                               // ... this would get the name from the body of the form.
@@ -66,9 +66,13 @@ app.post('/register', async function(req, res) {                               /
         res.redirect('/register', );                                           // and respond by redirecting to the register page.
     }                                                    
 });
-
-function checkAuthentication(req, res, next) {
-
+ 
+function checkAuthentication(req, res, next) {                             // middleware function that checks to see if the user is authenticated.
+    if (req.isAuthenticated()) {                                           // if the request user is authenticated...
+       return next();                                                      // if true, return call to next (everything works)
+    } else {
+       res.redirect('/login');                                             // if false, redirect to the login page.
+    }
 }
 
 app.listen(process.env.PORT || 3000, function() {                                             // listen on port 3000 for requests...

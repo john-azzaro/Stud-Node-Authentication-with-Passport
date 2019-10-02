@@ -448,13 +448,29 @@ app.get('/', function(req, res) {                          // Route for Home Pag
 
 PHASE 16: Protect routes when the user is not logged in
 =======================================================
-To do this, you simply need to add a checkAuthorization function in the passport-config file.
+To do this, you simply need to add a checkAuthorization middleware function in the passport-config file.
 --------------------------------------------
 function checkAuthentication(req, res, next) {
     ....
 }
 --------------------------------------------
 
-Then, 
+Then, add an if then statement to check and see if the user is authenticated or not.  
+If authenticated return next... if not, redirect to login screen.
+
+--------------------------
+function checkAuthentication(req, res, next) {                             // middleware function that checks to see if the user is authenticated.
+    if (req.isAuthenticated()) {                                           // if the request user is authenticated...
+       return next();                                                      // if true, return call to next (everything works)
+    } else {
+       res.redirect('/login');                                             // if false, redirect to the login page.
+    }
+}
+--------------------------
+
+Lastly, add the checkAuthentication as an argument in the app.get home route.
+----------------------------------------------------
+
+----------------------------------------------------
 
 
