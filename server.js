@@ -75,6 +75,14 @@ function checkAuthentication(req, res, next) {                             // mi
     }
 }
 
+function checkNotAuthentication(req, res, next) {                             // middleware function that checks to see if the user is authenticated.
+    if (req.isAuthenticated()) {                                           
+       res.redirect('/')                                                      
+    } else {
+       res.redirect('/login');                                             // if false, redirect to the login page.
+    }
+}
+
 app.listen(process.env.PORT || 3000, function() {                                             // listen on port 3000 for requests...
     console.log(`Your app is listening on port ${process.env.PORT || 3000}...`);
 });
