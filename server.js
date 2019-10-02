@@ -8,6 +8,7 @@ const bcrypt = require('bcrypt');                           // added bcrypt for 
 const passport = require('passport');                       // add the passport library
 const flash = require("express-flash");                     // add flash (for messages)
 const session = require("express-session");                 // add session to persist login for user across app.
+const methodOverride = require('method-override');          // add method-override so that we can logout the user.
 
 
 const initializePassport = require('./passport-config');     // call the passport config file for passport information
@@ -31,7 +32,8 @@ app.use(session( {                                         // use the session
     saveUninitialized: false,                              // should you save an empty value in the session... we dont so its false.
 }));
 app.use(passport.initialize());                            // Setup passport  to setup basics.
-app.use(passport.session());                                // to store variables across the entire session, use passport.session (works with app.use(session) above).
+app.use(passport.session());                               // to store variables across the entire session, use passport.session (works with app.use(session) above).
+app.use(methodOverride('_method'));                        // call methodOverride and pass what we want methodOverride to be
 
 
 app.get('/', checkAuthentication, function(req, res) {     // Route for Home Page (that you need to be logged into to get to)... and also pass checkAuthenticate for session permission.
@@ -69,13 +71,8 @@ app.post('/register', checkNotAuthentication, async function(req, res) {      //
 
 app.delete('/logout', function(req, res) {                                  // To logout, we need to do a delete request.
     req.logOut();                                                           // request log out (this is setup by passport)...
-    req.redirect('/login');                                                 // and send back to the login screen.
+    res.redirect('/login');                                                 // and send back to the login screen.
 });                                                              
-
-
-
-
-
  
 function checkAuthentication(req, res, next) {                             // middleware function that checks to see if the user is authenticated.
     if (req.isAuthenticated()) {                                           // if the request user is authenticated...

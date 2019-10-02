@@ -1,1 +1,4 @@
 <h1>Hello there <%= name %>, this is the home page</h1>
+<form action="/logout?_method=DELETE" method="POST">         <!--so to logout, our action is to logout, the "_method" overrides the method (i.e. POST) with DELETE-->
+    <button type="submit">Log Out</button>
+</form>                   

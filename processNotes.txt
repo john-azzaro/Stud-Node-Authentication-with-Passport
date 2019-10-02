@@ -538,3 +538,18 @@ To log out the user, we need to use a delete request.  However, dekete is not di
 ----------------------------------
 npm install method-override
 ----------------------------------
+Then require the library
+--------------------------------------
+const methodOverride = require('method-override');          // add method-override so that we can logout the user.
+--------------------------------------
+then use that library
+--------------------------------------
+app.use(methodOverride('_method'))                  // call methodOverride and pass what we want methodOverride to be
+--------------------------------------
+THEN of course we need to add a button that will allow us to logout
+--------------------------------------------------
+<h1>Hello there <%= name %>, this is the home page</h1>
+<form action="/logout?_method=DELETE" method="POST">         <!--so to logout, our action is to logout, the "_method" overrides the method (i.e. POST) with DELETE-->
+    <button type="submit">Log Out</button>
+</form>      
+--------------------------------------------------
