@@ -22,4 +22,13 @@ Passport is an authentication middleware for Node.js.  Passport can be dropped i
 <br>
 
 ## What is the Passport Authentication Flow?
-The authentication flow is the series of steps the application is set up to follow in order to register and authenticate a user, as well as persist the user during the session.  
+The authentication flow is the series of steps the application is set up to follow in order to register and authenticate a user, as well as persist the user during the session.  The simplified authentication flow is as follows:
+
+1. The user is initially routed to the login-Screen.
+2. If the user is new, the user can follow the *register* link below the form.  If not, log in.
+3. If the user registers, the user inputs thier name, email-address, and password.
+4. After registration, the user is routed to the Login screen.
+5. The user logs in with email and password.  IF successful, user is routed to the home page.  If not, the user encounters a flash error message.
+6. Enjoy the home page!
+7. When successfully logged in, the user CANNOT login (route will be prohibited).
+8. When user wants to log out, user can click the "Log Out" button.
