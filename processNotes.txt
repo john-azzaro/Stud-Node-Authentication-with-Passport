@@ -105,7 +105,7 @@ PHASE 4: Setup the registration and login screens
 
 
 
-PHASE 5: Create route and html for yourtRegistration page
+PHASE 5: Create route and html for your Registration page
 ==========================================================
     1. First, create your registration page:
         --------------------------------------------------
