@@ -6,8 +6,10 @@
 
 Here's some questions covered in the study:
 
-* [What is Authentication?](#)
-* [What is Passport?](#)
+* [What is Authentication?](#What-is-Authentication)
+* [What is Passport?](#What-is-Passport)
+* [What is the Passport Authentication Flow?](#What-is-the-Passport-Authentication-Flow)
+* [What are the points of interest in the Passport Study?](#What-are-the-points-of-interest-in-the-Passport-Study)
 
 <br>
 
@@ -35,7 +37,7 @@ The authentication flow is the series of steps the application is set up to foll
 
 <br>
 
-## Points of interest in the Passport Study
+## What are the points of interest in the Passport Study?
 Since this particular study is a little bit more extensive in terms of building out the prototype, I thought it would be best to provide some interesting highlights from the study below.  If you want to get a better sense of the study and the step-by-step development process, check out the server.js and passport-config.js files, as well as the processNotes.txt file for a complete walk through.  
 
 In any case, here are some interesting points of interest:
@@ -108,3 +110,12 @@ For routes you do NOT want to authenticate, like going back to the login screen 
 ```
 
 <br>
+
+### Log out functionality needs to be added in with method-override
+Interesting thing while learning about CRUD functionality with this study is that the the DELETE method is NOT directly supported in forms.  In order to fix this issue, you need to use the method-override dependency and use that library (passing in what you want methodOverride to be which would be _method for the form), and THEN in the form over-ride the POST method to a DELETE method.
+```HTML
+    <h1>Hello there <%= name %>, this is the home page</h1>
+    <form action="/logout?_method=DELETE" method="POST">         <!--to logout, the "_method" overrides the method (i.e. POST) with DELETE-->
+        <button type="submit">Log Out</button>
+    </form>      
+```
