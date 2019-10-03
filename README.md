@@ -37,14 +37,18 @@ The authentication flow is the series of steps the application is set up to foll
 
 ## Points of interest in the Passport Study.
 
+<br>
+
 ### You need to include express.urlencoded for the POST requests.
 Seems pretty straight forward, since the information you are passing in is coming from forms.  Additionally, you want to pass in the option of ``` extended: false ``` because we want the application to take the login information and access them inside the request method.
 ```JavaScript
     app.use(express.urlencoded({ extended: false }));
 ```
 
+<br>
+
 ### You can use bcrypt with Passport
-You can use bcrypt to hash and salt passwords in your application if you want.
+You can use bcrypt to hash and salt passwords in your application if you want.  In this study, we just use a simple hash but adding a salt is realtively easy.
 ```JavaScript
     app.post('/register', async function(req, res) { 
         try {
@@ -54,3 +58,16 @@ You can use bcrypt to hash and salt passwords in your application if you want.
         } ...
     }
 ```
+
+<br>
+
+### Passport has a number of authentication methods
+In this study, we use a local strategy, but you can use a number of different strategies such as google, facebook, etc.
+```
+    npm install passport passport-local
+```
+
+<br>
+
+### Its best to have all your Passport logic in a seperate document from server.js
+In the case of this study, 
