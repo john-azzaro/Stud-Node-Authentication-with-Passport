@@ -35,7 +35,10 @@ The authentication flow is the series of steps the application is set up to foll
 
 <br>
 
-## Points of interest in the Passport Study.
+## Points of interest in the Passport Study
+Since this particular study is a little bit more extensive in terms of building out the prototype, I thought it would be best to provide some interesting highlights from the study below.  If you want to get a better sense of the study and the step-by-step development process, check out the server.js and passport-config.js files, as well as the processNotes.txt file for a complete walk through.  
+
+In any case, here are some interesting points of interest:
 
 <br>
 
@@ -69,5 +72,39 @@ In this study, we use a local strategy, but you can use a number of different st
 
 <br>
 
-### Its best to have all your Passport logic in a seperate document from server.js
-In the case of this study, 
+### To keep your server.js file clean, put your Passport logic in a seperate document.
+In the case of this study, everything is put into a passport.config.js file and the module is accessible in the server.js file.  If you want to see how this is done, check out the file itself or phase 9 of the process notes!
+
+<br>
+
+### Checking for authentication is very simple
+To check for authentication (or no authentication), which essentially means check to see if the user has permission to be there, you simply need to add two middleware functions and then pass those function to the respective routes.  For example, for routes that you want to check for authenticated user, if it checks out then the application will render the home page:
+```JavaScript
+  function checkAuthentication(req, res, next) {  
+        if (req.isAuthenticated()) {  
+            return next();  
+        } else {
+            res.redirect('/login'); 
+        }
+    }
+```
+And then you would pass in the middleware function to your desired routes. For example, below you have a GET request to the home page (i.e. /) and before the response can be sent, checkAuthenticate is run first, which then runs its own respective logic to return next OR redirect to the login screen if there is a problem. 
+
+```JavaScript
+    app.get('/', checkAuthentication, function(req, res) {    
+        res.render('index.ejs', { name: req.user.name });      
+    });
+```
+
+For routes you do NOT want to authenticate, like going back to the login screen AFTER you login, which would simply redirect the user back to the home page. And like the example above, you would simply need to pass in this middleware function to any route you wanted to ensure the user (when logged in), does not go to (it would be redundant).
+```JavaScript
+    function checkNotAuthentication(req, res, next) {   
+        if (req.isAuthenticated()) {       
+            res.redirect('/')  
+        } else {
+            next();  
+        }
+    }
+```
+
+<br>
