@@ -3,6 +3,7 @@
 <br>
 
 ## What is the Node Authentication with Passport Study?
+The Node Authentication with Passport Study is an exploration of the Passport library in the implementation of a *very* basic authentication system.  In this study, the user is needs to register with a name, email, and password. Then, you can login.  Once you reach the home page, you can log out!  There are a few additional interesting libraries as well, such as bcrypt (see my study on bcrypt if you want to learn more on that or add a salt to this prototype), passport authentication methods, middleware authentication, and the use of method-override to enable log out functionality in the app.
 
 Here's some questions covered in the study:
 
